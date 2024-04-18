@@ -56,5 +56,5 @@ class FFC():
             print('Appending data...')
             
     def save(self):
-        self.Spectrometer.read_spec(f'PATH_{time.time()}.fits', 200, (350.85,58.815), system = 'eq')
+        self.Spectrometer.read_spec(f'PATH_{time.time()}.fits', 200, (az, alt), system = 'eq')
         
