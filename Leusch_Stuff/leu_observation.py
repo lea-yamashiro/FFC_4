@@ -54,6 +54,7 @@ class FFC():
         while self.isrecording:
             time.sleep(5)
             print('Appending data...')
-
-
-''' need to define a "save" function, then that should be it? '''
+            
+    def save(self):
+        self.Spectrometer.read_spec(f'PATH_{time.time()}.fits', 200, (350.85,58.815), system = 'eq')
+        
