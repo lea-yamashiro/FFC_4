@@ -84,8 +84,8 @@ while True:
                         data0=[pwr0], data1=[pwr1], time=current_time, 
                         coords=ra_pointing[i], altaz = alt_az, jd=jd)
                print(f'File: spec{i}_L{ra_pointing.loc[i][0]}_B{ra_pointing.loc[i][0]}.npz has been written'.format(str))
-        except KeyboardInterrupt:
-        print('Done collecting') 
+    except KeyboardInterrupt:
+    print('Done collecting') 
 
-        
+
 
