@@ -26,7 +26,7 @@ def leusch_gal_to_AltAz(L,B): # function to spit out time-sensitive altitude and
     # set galactic coordinates 
     galactic_coords = SkyCoord(l = L*u.deg, b = B*u.deg, frame = 'galactic')
     # set Leuschner observation location (latitude, longtidue, elevation)
-    Leusch_coords = EarthLocation(lat = leo.lat*u.deg, lon = -leo.lon*u.deg, height = leo.alt*u.m) 
+    leusch_coords = EarthLocation(lat = leo.lat*u.deg, lon = -leo.lon*u.deg, height = leo.alt*u.m) 
     # set observation time in UNIX 
     observation_time = astropy.time.Time(time.time(), format = 'unix')
     # convert to AltAz using astropy transformation 
@@ -35,9 +35,9 @@ def leusch_gal_to_AltAz(L,B): # function to spit out time-sensitive altitude and
     alt_point = alt_az_coords.alt
     az_point = alt_az_coords.az 
     # store them in array
-    AltAz_point = [alt_point, az_point]
+    AltAz_pointers = [alt_point, az_point]
 	
-    return AltAz_point
+    return AltAz_pointers
 
 
 def fft(signal): # for Fourier transform
