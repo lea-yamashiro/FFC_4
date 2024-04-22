@@ -82,7 +82,7 @@ for i in range(len(ra_pointing)):
 
 	# saves the data as an npz file, with filename structure: spec(index)_L(galactic longitude)_B(galactic latitude).npz
     np.savez(f'spec{i}_L{ra_pointing.loc[i][0]}_B{ra_pointing.loc[i][0]}.npz'.format(str), 
-		  data0=[pwr0], data1=[pwr1], time=current_time, 
-		  coords=ra_pointing[i], altaz = alt_az)
+             data0=[pwr0], data1=[pwr1], time=current_time, 
+             coords=ra_pointing[i], altaz = alt_az)
 
 
