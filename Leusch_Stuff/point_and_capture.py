@@ -81,7 +81,7 @@ try:
                
                # saves the data as an npz file, with filename structure: spec(index)_L(galactic longitude)_B(galactic latitude).npz
                np.savez(f'spec{i}_L{ra_pointing.loc[i][0]}_B{ra_pointing.loc[i][0]}.npz'.format(str), 
-                        data0=[pwr0], data1=[pwr1], time=current_time, 
+                        data0=pwr0, data1=pwr1, time=current_time, 
                         coords=ra_pointing[i], altaz = alt_az, jd=jd)
                print(f'File: spec{i}_L{ra_pointing.loc[i][0]}_B{ra_pointing.loc[i][0]}.npz has been written'.format(str))
 
