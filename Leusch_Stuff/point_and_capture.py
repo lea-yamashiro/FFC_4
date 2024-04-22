@@ -74,10 +74,10 @@ for i in range(len(ra_pointing)):
     current_time = time.time() # grab unix time of observation once finished pointing
     data = ugradio.sdr.capture_data([sdr0, sdr1], nsamples=2048, nblocks=10000) # run data-capture function within SDR module
     
-    d0 = data[0][...,0]+1j*data[0][...,1]
+    d0 = data[0][...,0]+1j*data[0][...,1] # adding up real and imaginary data 
 	d1 = data[1][...,0]+1j*data[1][...,1]
 
-	pwr0 = np.mean(perform_power(fft(d0)), axis=0)
+	pwr0 = np.mean(perform_power(fft(d0)), axis=0) # applying power function 
 	pwr1 = np.mean(perform_power(fft(d1)), axis=0)
 
 	# saves the data as an npz file, with filename structure: spec(index)_L(galactic longitude)_B(galactic latitude).npz
