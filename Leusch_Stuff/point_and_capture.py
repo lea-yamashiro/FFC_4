@@ -17,6 +17,8 @@ from __future__ import print_function
 import socket, serial, time, math, sys
 import subprocess
 
+
+
 # 1. Define functions, load in coordinates table
 
 ra_pointing = pd.read_csv('RA_Sorted.csv') # coordinates table
@@ -31,11 +33,8 @@ def leusch_gal_to_AltAz(L,B): # function to spit out time-sensitive altitude and
     observation_time = astropy.time.Time(time.time(), format = 'unix')
     # convert to AltAz using astropy transformation 
     alt_az_coords = galactic_coords.transform_to(AltAz(obstime = observation_time, location = leusch_coords))
-    # extract altitude and azimuth from the coordinates 
-    alt_point = alt_az_coords.alt
-    az_point = alt_az_coords.az 
-    # store them in array
-    AltAz_pointers = [alt_point, az_point]
+    # extract altitude and azimuth from the coordinates, store in array
+    AltAz_pointers = [alt_az_coords.alt, alt_az_coords.az]
 	
     return AltAz_pointers
 
@@ -57,12 +56,13 @@ sdr1 = ugradio.sdr.SDR(device_index=1, direct=False, center_freq=1420e6,
                        sample_rate=3.2e6, gain=20, fir_coeffs=None) # for second SDR, marked SDR1
 
 # telescope initialization
-telescope = leusch.LeuschTelescope(host=HOST_ANT, port=PORT, 
-								   delta_alt=DELTA_ALT_ANT, delta_az=DELTA_AZ_ANT)
+telescope = leusch.LeuschTelescope(host=HOST_ANT, port=PORT, delta_alt=DELTA_ALT_ANT, delta_az=DELTA_AZ_ANT)
 
 # IF we want to use the Noise diode: 
 noise = leusch.LeuschNoise(host=HOST_NOISE_SERVER, port=PORT, verbose=False)
 noise.on # turn on noise diode
+
+
 
 # 3. set for loop for pointing and collecting data
 
@@ -84,4 +84,5 @@ for i in range(len(ra_pointing)):
     np.savez(f'spec{i}_L{ra_pointing.loc[i][0]}_B{ra_pointing.loc[i][0]}.npz'.format(str), 
 		  data0=[pwr0], data1=[pwr1], time=current_time, 
 		  coords=ra_pointing[i], altaz = alt_az)
+
 
