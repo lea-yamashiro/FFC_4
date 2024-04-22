@@ -8,6 +8,7 @@ import time
 from rtlsdr import RtlSdr
 
 
+
 # Define Function/Constants
 def fft(signal):
 	return np.fft.fft(signal)
@@ -20,6 +21,13 @@ def shift(signal):
 
 freqs = np.fft.fftshift(np.fft.fftfreq(2048, 1/3.2e6))
 
+# defines the number of samples to capture as data
+sdr0 = ugradio.sdr.SDR(device_index=0, direct=True, center_freq=1420.8e6,
+                       sample_rate=3.2e6, gain=0, fir_coeffs=None)
+
+sdr1 = ugradio.sdr.SDR(device_index=1, direct=True, center_freq=1420.8e6,
+                       sample_rate=3.2e6, gain=0, fir_coeffs=None)
+
 # Data Capture
 for i in range(1):
 
@@ -30,13 +38,6 @@ for i in range(1):
 	#4. Get Fourier-transformed power
 
 	current_time = time.time() # gives unix time since epoch, i.e. jan 1st, 1970
-
-	# defines the number of samples to capture as data
-	sdr0 = ugradio.sdr.SDR(device_index=0, direct=True, center_freq=1420.8e6,
-                       sample_rate=3.2e6, gain=0, fir_coeffs=None)
-
-	sdr1 = ugradio.sdr.SDR(device_index=1, direct=True, center_freq=1420.8e6,
-                       sample_rate=3.2e6, gain=0, fir_coeffs=None)
 
 	data = ugradio.sdr.capture_data([sdr0, sdr1], nsamples=2048, nblocks=10)
 
