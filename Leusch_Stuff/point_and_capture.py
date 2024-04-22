@@ -63,8 +63,8 @@ noise = leusch.LeuschNoise(host=HOST_NOISE_SERVER, port=PORT, verbose=False)
 noise.on # turn on noise diode
 
 # 3. set for loop for pointing and collecting data
-while True: 
-     try:
+try: 
+     while True:
           for i in range(len(ra_pointing)): 
                
                alt_az = leusch_gal_to_AltAz(ra_pointing.loc[i][0], ra_pointing.loc[i][1]) # iterate for alt, applying leuschner alt-az function to ra_pointing dataframe 
@@ -84,7 +84,8 @@ while True:
                         data0=[pwr0], data1=[pwr1], time=current_time, 
                         coords=ra_pointing[i], altaz = alt_az, jd=jd)
                print(f'File: spec{i}_L{ra_pointing.loc[i][0]}_B{ra_pointing.loc[i][0]}.npz has been written'.format(str))
-    except KeyboardInterrupt:
+
+except KeyboardInterrupt:
     print('Done collecting') 
 
 
