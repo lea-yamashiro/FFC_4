@@ -67,6 +67,7 @@ noise.on # turn on noise diode
 # 3. set for loop for pointing and collecting data
 try: 
      while True:
+          
           for i in range(len(ra_pointing)): 
                
                alt_az = leusch_gal_to_AltAz(ra_pointing.loc[i][0], ra_pointing.loc[i][1]) # iterate for alt, applying leuschner alt-az function to ra_pointing dataframe 
