@@ -62,6 +62,8 @@ telescope = leusch.LeuschTelescope(host=HOST_ANT, port=PORT, delta_alt=DELTA_ALT
 noise = leusch.LeuschNoise(host=HOST_NOISE_SERVER, port=PORT, verbose=False)
 noise.on # turn on noise diode
 
+
+
 # 3. set for loop for pointing and collecting data
 try: 
      while True:
