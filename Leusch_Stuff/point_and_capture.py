@@ -30,7 +30,7 @@ def leusch_gal_to_AltAz(L,B): # function to spit out time-sensitive altitude and
     # set observation time in UNIX 
     observation_time = astropy.time.Time(time.time(), format = 'unix')
     # convert to AltAz using astropy transformation 
-    alt_az_coords = galactic_coords.transform_to(AltAz(obstime = observation_time, location = Leusch_coords))
+    alt_az_coords = galactic_coords.transform_to(AltAz(obstime = observation_time, location = leusch_coords))
     # extract altitude and azimuth from the coordinates 
     alt_point = alt_az_coords.alt
     az_point = alt_az_coords.az 
