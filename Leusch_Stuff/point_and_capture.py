@@ -62,8 +62,8 @@ try:
             pwr1 = np.mean(perform_power(fft(d1)), axis=0)
             # saves the data as an npz file, with filename structure: spec(index)_L(galactic longitude)_B(galactic latitude).npz
             np.savez(f'spec{i}_L{ra_pointing.loc[i][0]}_B{ra_pointing.loc[i][0]}.npz'.format(str), 
-                        data0=pwr0, data1=pwr1, time=current_time, 
-                        coords=ra_pointing[i], alt_az = [alt, az], jd=jd)
+                        data0=pwr0, data1=pwr1, time=current_time, missed=flops,
+                        coords=ra_pointing[i], alt_az = [alt, az], jd=jd, )
             print(f'File: spec{i}_L{ra_pointing.loc[i][0]}_B{ra_pointing.loc[i][0]}.npz has been written'.format(str))
         else: 
              print('object is out of range')
