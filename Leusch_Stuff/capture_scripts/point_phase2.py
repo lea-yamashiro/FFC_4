@@ -51,9 +51,9 @@ DELTA_AZ_ANT  = -0.13  # (true - encoder) offset
 
 # both SDR polarizations
 sdr0 = ugradio.sdr.SDR(device_index=0, direct=False, center_freq=1420e6,
-                       sample_rate=3.2e6, gain=20, fir_coeffs=None) # for first SDR, marked SDR0 -- note: LO?
+                       sample_rate=3.2e6, gain=15, fir_coeffs=None) # for first SDR, marked SDR0 -- note: LO?
 sdr1 = ugradio.sdr.SDR(device_index=1, direct=False, center_freq=1420e6,
-                       sample_rate=3.2e6, gain=20, fir_coeffs=None) # for second SDR, marked SDR1
+                       sample_rate=3.2e6, gain=15, fir_coeffs=None) # for second SDR, marked SDR1
 # telescope initialization
 telescope = leusch.LeuschTelescope(host=HOST_ANT, port=PORT, delta_alt=DELTA_ALT_ANT, delta_az=DELTA_AZ_ANT)
 # IF we want to use the Noise diode:
@@ -62,11 +62,11 @@ telescope = leusch.LeuschTelescope(host=HOST_ANT, port=PORT, delta_alt=DELTA_ALT
 
 
 # 3. set for loop for pointing and collecting data
-
+phase2 = np.arange(163, 325, 1)
 flops = {}
 point = 0
 try:
-    for i in range(len(ra_pointing)):
+    for i in phase2:
         jd = ugradio.timing.julian_date()
         alt, az = ugradio.coord.get_altaz(ra = ra_pointing.iloc[i,3], dec = ra_pointing.iloc[i,4],
                                           jd=jd, lat=leo.lat, lon = -leo.lon, alt=leo.alt)
@@ -81,7 +81,7 @@ try:
             pwr0 = np.mean(perform_power(fft(d0)), axis=0) # applying power function
             pwr1 = np.mean(perform_power(fft(d1)), axis=0)
             # saves the data as an npz file, with filename structure: spec(index)_L(galactic longitude)_B(galactic latitude).npz
-            np.savez(f'capture_042224/spec{i}_2_L{ra_pointing.iloc[i,1]:.0f}_B{ra_pointing.iloc[i,2]:.0f}.npz'.format(str),
+            np.savez(f'capture_042424/Phase2/spec{i}_L{ra_pointing.iloc[i,1]:.0f}_B{ra_pointing.iloc[i,2]:.0f}.npz'.format(str),
                         data0=pwr0, data1=pwr1, time=current_time, missed=flops,
                         coords=ra_pointing.iloc[i], alt_az = [alt, az], jd=jd)
             print(f'File: spec{i} has been written'.format(str))
