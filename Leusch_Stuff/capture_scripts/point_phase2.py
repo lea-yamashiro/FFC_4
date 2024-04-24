@@ -81,7 +81,7 @@ try:
             pwr0 = np.mean(perform_power(fft(d0)), axis=0) # applying power function
             pwr1 = np.mean(perform_power(fft(d1)), axis=0)
             # saves the data as an npz file, with filename structure: spec(index)_L(galactic longitude)_B(galactic latitude).npz
-            np.savez(f'capture_042424/Phase2/spec{i}_L{ra_pointing.iloc[i,1]:.0f}_B{ra_pointing.iloc[i,2]:.0f}.npz'.format(str),
+            np.savez(f'obs_042424/Phase2/spec{i}_L{ra_pointing.iloc[i,1]:.0f}_B{ra_pointing.iloc[i,2]:.0f}.npz'.format(str),
                         data0=pwr0, data1=pwr1, time=current_time, missed=flops,
                         coords=ra_pointing.iloc[i], alt_az = [alt, az], jd=jd)
             print(f'File: spec{i} has been written'.format(str))
